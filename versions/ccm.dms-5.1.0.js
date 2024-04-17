@@ -12,6 +12,7 @@
 ( () => {
   const component = {
     name: 'dms',
+    version: [ 5, 1, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
       "apps": [ "ccm.store" ],
