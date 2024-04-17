@@ -1,6 +1,6 @@
 /**
  * @overview HTML templates for building an app configuration
- * @author André Kless <andre.kless@web.de> 2021-2022
+ * @author André Kless <andre.kless@web.de> 2021-2022, 2024
  */
 
 import { html, render, repeat, unsafeHTML } from 'https://ccmjs.github.io/akless-components/libs/lit/lit.min.js';
@@ -27,7 +27,7 @@ export function main() {
 
   function footer() {
     return html`
-      <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
+      <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom" data-hidden>
         <div class="me-5 d-none d-lg-block">
           <span data-lang="social_media">${ dms.text.social_media }</span>
         </div>
@@ -146,7 +146,7 @@ export function header( active ) {
           </button>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user">
             <li ?data-hidden=${ user }><button class="dropdown-item" type="button" data-lang="btn_login" @click=${ dms.events.onLogin }>${ dms.text.btn_login }</button></li>
-            <li ?data-hidden=${ user }><button disabled class="dropdown-item" type="button" data-lang="btn-register">${ dms.text.btn_register }</button></li>
+            <li ?data-hidden=${ user }><button class="dropdown-item" type="button" data-lang="btn-register" @click=${ dms.events.onRegister }>${ dms.text.btn_register }</button></li>
             <li ?data-hidden=${ !user }>
               <button disabled class="dropdown-item d-flex align-items-center" type="button">
                 <span data-lang="btn_notifications">${ dms.text.btn_notifications }</span>
@@ -944,5 +944,40 @@ export function show( app_key ) {
         </div>
       </div>
     </div>
+  `;
+}
+
+/**
+ * HTML template for register section
+ * @returns {TemplateResult}
+ */
+export function register() {
+  return html`
+    <section class="bg-white py-5 border-top">
+      <div class="container text-center" style="width: 33em">
+        <div class="mb-4 display-4" data-lang="register_title">${ dms.text.register_title }</div>
+        <div class="lead mb-4" data-lang="register_text">${ dms.text.register_text }</div>
+        <div class="lead mb-4 text-start">
+          <form id="register_form" @submit=${ event => { event.preventDefault(); dms.events.onRegisterSubmit(); } }>
+            <div class="mb-3">
+              <label for="register_name" class="form-label" data-lang="register_name">${ dms.text.register_name }</label>
+              <input type="text" name="name" class="form-control" id="register_name" required>
+              <div class="form-text" data-lang="register_name_help">${ dms.text.register_name_help }</div>
+            </div>
+            <div class="mb-3">
+              <label for="register_username" class="form-label" data-lang="register_username">${ dms.text.register_username }</label>
+              <input type="text" name="username" pattern="[a-z]+" class="form-control" id="register_username" required>
+              <div class="form-text" data-lang="register_username_help">${ dms.text.register_username_help }</div>
+            </div>
+            <div class="mb-3">
+              <label for="register_password" class="form-label" data-lang="register_password">${ dms.text.register_password }</label>
+              <input type="password" name="password" class="form-control" id="register_password" required>
+              <div class="form-text" data-lang="register_password_help">${ dms.text.register_password_help }</div>
+            </div>
+            <button type="submit" class="btn btn-primary" data-lang="register_submit">${ dms.text.register_submit}</button>
+          </form>
+        </div>
+      </div>
+    </section>
   `;
 }

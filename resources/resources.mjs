@@ -1,6 +1,6 @@
 /**
  * @overview data-based resources for a digital makerspace
- * @author André Kless <andre.kless@web.de> 2021-2022
+ * @author André Kless <andre.kless@web.de> 2021-2022, 2024
  * @license The MIT License (MIT)
  */
 
@@ -116,6 +116,17 @@ const en = {
   "meta_url": "URL",
   "meta_visibility": "Visibility",
   "old_dms": "Old Digital Makerspace",
+  "register_failed": "Failed. Maybe try a different username.",
+  "register_name": "First and Last Name",
+  "register_name_help": "For quality assurance, please provide your real name.",
+  "register_password": "Password",
+  "register_password_help": "If you lose your password: email <a href=\"mailto:andre.kless@h-brs.de?subject=[DMS] Forgot Password\">andre.kless@h-brs.de</a>.",
+  "register_submit": "Create Account",
+  "register_success": "User created successfully.",
+  "register_text": "Here you can create a new user account.",
+  "register_title": "Registration Form",
+  "register_username": "Username",
+  "register_username_help": "Please only use lowercase letters.",
   "search_category": "Category",
   "search_creator": "Creator",
   "search_sort": "Sort by",
@@ -270,6 +281,17 @@ const de = {
   "meta_url": "URL",
   "meta_visibility": "Sichtbarkeit",
   "old_dms": "Alter Digital Makerspace",
+  "register_failed": "Fehlgeschlagen. Versuchen Sie es vielleicht mit einem anderen Benutzernamen.",
+  "register_name": "Vor- und Nachname",
+  "register_name_help": "Für die Qualitätssicherung bitte den echten Namen angeben.",
+  "register_password": "Passwort",
+  "register_password_help": "Bei Passwortverlust: E-Mail an <a href=\"mailto:andre.kless@h-brs.de?subject=[DMS] Passwort vergessen\">andre.kless@h-brs.de</a> schreiben.",
+  "register_submit": "Benutzer anlegen",
+  "register_success": "Benutzer erfolgreich angelegt.",
+  "register_text": "Hier können Sie ein neues Benutzerkonto anlegen.",
+  "register_title": "Registrierungsformular",
+  "register_username": "Benutzername",
+  "register_username_help": "Bitte nur Kleinbuchstaben verwenden.",
   "search_category": "Kategorie",
   "search_creator": "Author",
   "search_sort": "Sortieren nach",
