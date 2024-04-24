@@ -2,7 +2,7 @@
  * @overview ccmjs-based web component for a digital makerspace
  * @author André Kless <andre.kless@web.de> 2018-2022, 2024
  * @license The MIT License (MIT)
- * @version latest (5.2.0)
+ * @version 5.2.0
  * @changes
  * version 5.2.0 (24.04.2024): multilingualism for user content
  * version 5.1.0 (17.04.2024): added register form
@@ -13,6 +13,7 @@
 ( () => {
   const component = {
     name: 'dms',
+    version: [ 5, 2, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
       "apps": [ "ccm.store" ],
