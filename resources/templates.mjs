@@ -451,23 +451,32 @@ export function list( section, values ) {
  * @returns {TemplateResult}
  */
 function trailer(section, title, text) {
+   // Define the image URLs for each section
+   const images = {
+    tools: 'https://i.ibb.co/mG5m6Kj/Logo-gelb.png',
+    apps: 'https://i.ibb.co/4g6b5QP/logo-blau.png',
+    components: 'https://i.ibb.co/wByGHv0/logo-new.png'
+  };
+
+  // Get the image URL based on the section parameter
+  const imageUrl = images[section] || 'https://i.ibb.co/wByGHv0/logo-new.png'; // Default image if section is not found
+
   return html`
     <section id="trailer" class="border-bottom">
       <div class="container testClass pt-4 pb-2 bg-${title}">
         <div class="row">
           <div class="col">
             <h1 class="banner text-${section}" data-lang="${title}">${dms.text[title]}</h1>
-            <p data-lang="${text}">${dms.text[text]}</p>
+            <p data-lang="${text}" style="color: white; margin-top: 5%; margin-bottom: 8%; font-size: 17px; margin-left: 14%;">${dms.text[text]}</p>
           </div>
           <div class="col">
-            <img src="https://i.ibb.co/n3Gg5pn/logo-blau.png" alt="Digital Makerspace Logo" class="bannerLogo">
+            <img src="${imageUrl}" alt="Digital Makerspace Logo" class="bannerLogo">
           </div>
         </div>
       </div>
     </section>
   `;
 }
-
 /**
  * HTML template for searching metadata
  * @param {string} section - 'tools', 'apps' or 'components'
@@ -479,19 +488,25 @@ function metaSearch( section, values = {} ) {
   return html`
     <section id="search_controls" class="bg-${ section }-tmp">
    
-    <div class="button-container">
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Quiz</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Bildkarte</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>PDF-Viewer</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>App-Sammlung</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Lückentext</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Live-Umfrage</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Slidecast</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Parkhaus</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>plotly</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>ER-REL-Trainer</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Code-Editor</button>
-        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Multiple Choice</button>
+    <div class="containerDrop">
+        <div class="text">Wählen Sie zunächst die Kategorie aus:</div>
+        <div class="dropdown-container">
+            <button class="dropdown-toggle-button" @click=${() => toggleDropdown()}>Wählen Sie ein Tool</button>
+            <div class="dropdown-menu" id="dropdownMenu">
+                <button class="dropdown-item" @click=${event => { handleClick('Quiz') }}>Quiz</button>
+                <button class="dropdown-item" @click=${event => { handleClick('Bildkarte') }}>Bildkarte</button>
+                <button class="dropdown-item" @click=${event => { handleClick('PDF-Viewer') }}>PDF-Viewer</button>
+                <button class="dropdown-item" @click=${event => { handleClick('App-Sammlung') }}>App-Sammlung</button>
+                <button class="dropdown-item" @click=${event => { handleClick('Lückentext') }}>Lückentext</button>
+                <button class="dropdown-item" @click=${event => { handleClick('Live-Umfrage') }}>Live-Umfrage</button>
+                <button class="dropdown-item" @click=${event => { handleClick('Slidecast') }}>Slidecast</button>
+                <button class="dropdown-item" @click=${event => { handleClick('Parkhaus') }}>Parkhaus</button>
+                <button class="dropdown-item" @click=${event => { handleClick('plotly') }}>plotly</button>
+                <button class="dropdown-item" @click=${event => { handleClick('ER-REL-Trainer') }}>ER-REL-Trainer</button>
+                <button class="dropdown-item" @click=${event => { handleClick('Code-Editor') }}>Code-Editor</button>
+                <button class="dropdown-item" @click=${event => { handleClick('Multiple Choice') }}>Multiple Choice</button>
+            </div>
+        </div>
     </div>
 
       <div class="container">
@@ -507,6 +522,28 @@ function metaSearch( section, values = {} ) {
     </section>
   `;
 
+  function toggleDropdown() {
+    document.getElementById("dropdownMenu").classList.toggle("show");
+  }
+  
+  function handleClick(toolName) {
+    dms.events.onToolSearch(section, toolName);
+    toggleDropdown();
+  }
+  
+  window.onclick = function(event) {
+    if (!event.target.matches('.dropdown-toggle-button')) {
+      var dropdowns = document.getElementsByClassName("dropdown-menu");
+      for (var i = 0; i < dropdowns.length; i++) {
+        var openDropdown = dropdowns[i];
+        if (openDropdown.classList.contains('show')) {
+          openDropdown.classList.remove('show');
+        }
+      }
+    }
+  }
+  
+  
   function filterBox( key, title, value ) {
     return html`
       <div class="col">
