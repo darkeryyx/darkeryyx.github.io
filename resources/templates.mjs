@@ -119,32 +119,89 @@ export function main() {
 }
 
 export function newHeader(active) {
-  return html `
-  <div class= "header" >
-    <div class="container">
-      <div class="logo-container">
-        <a href="test.html" class="logo-link">
-          <img src="https://i.ibb.co/wByGHv0/logo-new.png" alt="Digital Makerspace Logo" class="logo-img">
-          <span class="logo-text">Digital Makerspace</span>
-        </a>
-      </div>
-      <div class ="nav">
-        <ul >
-          <li><a class="nav-link nav-link-selber-bauen" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'tools' ) }>Selber Bauen</a></li>
-          <li><a class="nav-link nav-link-vorlagen-nutzen" ?data-focus-apps=${ active === 'apps' } @click=${ () => dms.events.onList( 'apps' ) }>Vorlagen nutzen</a></li>
-          <li><a href="#" class="nav-link nav-link-entwickeln">Entwickeln</a></li>
-        </ul>
-      </div>
-      <div class="login">
-        <a class="login-btn"  @click=${ () => {debugger; dms.events.onLogin()} } >Login</a>
-      </div>
-      <div class="mobile-menu">
-        <i class="fas fa-bars"></i>
+  const user = dms.user.getValue();
+  if (user) user.name = dms.user.getUsername();
+  const components = user && data.components.arr.filter(component => component.creator === user.name) || [];
+  const apps = user && data.apps.arr.filter(app => app.creator === user.name) || [];
+
+  return html`
+    <div class="header">
+      <div class="container">
+        <div class="logo-container">
+          <a href="test.html" class="logo-link">
+            <img src="https://i.ibb.co/wByGHv0/logo-new.png" alt="Digital Makerspace Logo" class="logo-img">
+            <span class="logo-text">Digital Makerspace</span>
+          </a>
+        </div>
+        <div class="nav">
+          <ul>
+            <li><a class="nav-link nav-link-selber-bauen" ?data-focus-tools=${active === 'tools'} @click=${() => dms.events.onList('tools')}>Selber Bauen</a></li>
+            <li><a class="nav-link nav-link-vorlagen-nutzen" ?data-focus-apps=${active === 'apps'} @click=${() => dms.events.onList('apps')}>Vorlagen nutzen</a></li>
+            <li><a href="#" class="nav-link nav-link-entwickeln">Entwickeln</a></li>
+          </ul>
+        </div>
+        <div class="login">
+          <nav class="dropdown me-0 my-1 flex-grow-1 d-flex justify-content-end">
+            <button class="btn dropdown-toggle d-flex align-items-center px-1 py-0" type="button" id="user" data-bs-toggle="dropdown" aria-expanded="false">
+              <span class="me-2" ?data-hidden=${!user}>${user && user.name}</span>
+              <img src="${user && user.picture || dms.picture}" alt="${dms.text.alt_picture}" class="rounded" width="32" height="32" data-lang="alt_picture-alt">
+            </button>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="user">
+              <li ?data-hidden=${user}><button class="dropdown-item" type="button" data-lang="btn_login" @click=${dms.events.onLogin}>${dms.text.btn_login}</button></li>
+              <li ?data-hidden=${user}><button class="dropdown-item" type="button" data-lang="btn_register" @click=${dms.events.onRegister}>${dms.text.btn_register}</button></li>
+              <li ?data-hidden=${!user}>
+                <button disabled class="dropdown-item d-flex align-items-center" type="button">
+                  <span data-lang="btn_notifications">${dms.text.btn_notifications}</span>
+                  <span class="badge rounded-pill bg-danger ms-1">1</span>
+                </button>
+              </li>
+              <li ?data-hidden=${!user}><button disabled class="dropdown-item" type="button" data-lang="btn_profile">${dms.text.btn_profile}</button></li>
+              <li ?data-hidden=${!user}><button disabled class="dropdown-item" type="button" data-lang="btn_data">${dms.text.btn_data}</button></li>
+              <li ?data-hidden=${!user}>
+                <button disabled class="dropdown-item d-flex align-items-center" type="button">
+                  <span data-lang="btn_bookmarks">${dms.text.btn_bookmarks}</span>
+                  <span class="badge rounded-pill bg-secondary ms-1">1</span>
+                </button>
+              </li>
+              <li ?data-hidden=${!user || !components.length && !apps.length}><hr class="dropdown-divider"></li>
+              <li ?data-hidden=${!user || !components.length && !apps.length}><h6 class="dropdown-header" data-lang="header_created">${dms.text.header_created}</h6></li>
+              <li ?data-hidden=${!user || !components.length}>
+                <button class="dropdown-item hover-bg-tools d-flex align-items-center" type="button" @click=${() => dms.events.onList('tools', { creator: user && user.name })}>
+                  <span data-lang="tools">${dms.text.tools}</span>
+                  <span class="badge rounded-pill bg-primary ms-1">${components.length}</span>
+                </button>
+              </li>
+              <li ?data-hidden=${!user || !apps.length}>
+                <button class="dropdown-item hover-bg-apps d-flex align-items-center" type="button" @click=${() => dms.events.onList('apps', { creator: user && user.name })}>
+                  <span data-lang="apps">${dms.text.apps}</span>
+                  <span class="badge rounded-pill bg-success ms-1">${apps.length}</span>
+                </button>
+              </li>
+              <li ?data-hidden=${!user || !components.length}>
+                <button class="dropdown-item hover-bg-components d-flex align-items-center" type="button" @click=${() => dms.events.onList('components', { creator: user && user.name })}>
+                  <span data-lang="components">${dms.text.components}</span>
+                  <span class="badge rounded-pill bg-components ms-1">${components.length}</span>
+                </button>
+              </li>
+              <li ?data-hidden=${!user}><hr class="dropdown-divider"></li>
+              <li ?data-hidden=${!user}>
+                <button disabled class="dropdown-item" type="button">
+                  <span data-lang="btn_trash">${dms.text.btn_trash}</span>
+                  <span class="badge rounded-pill bg-dark ms-1">1</span>
+                </button>
+              </li>
+              <li ?data-hidden=${!user}><button class="dropdown-item" type="button" data-lang="btn_logout" @click=${dms.events.onLogout}>${dms.text.btn_logout}</button></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="mobile-menu">
+          <i class="fas fa-bars"></i>
+        </div>
       </div>
     </div>
-    </div>
-  `
+  `;
 }
+
 
 /**
  * HTML template for header
@@ -269,7 +326,7 @@ export function newHome(active) {
             <img src="https://i.ibb.co/QY1DPWS/vorlage.png" alt="Vorlagen Icon" class="static-img">
             <img src="https://i.ibb.co/Ydfm51V/vorlage.gif" alt="Vorlagen Icon Animated" class="animated-img">
             <h3>Vorlagen nutzen</h3>
-            <p>Starte mit Vorlagen</p>
+            <p>Nutze Vorlagen um eine App zu bauen</p>
             <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'apps' ) }>Vorlagen</a>
           </div>
           <div class="feature-card">
@@ -379,7 +436,7 @@ export function list( section, values ) {
     ${ metaSearch( section, values ) }
 
     <!-- Search Results -->
-    <section id="search_results" class="container-fluid bg-${ section }-light">
+    <section id="search_results" class="container-fluid bg-${ section }-tmp">
       ${ cards( section, values ) }
     </section>
 
@@ -420,7 +477,7 @@ function trailer(section, title, text) {
 function metaSearch( section, values = {} ) {
   const options = data[ section !== 'apps' ? 'components' : 'apps' ].options;
   return html`
-    <section id="search_controls" class="bg-${ section }-light">
+    <section id="search_controls" class="bg-${ section }-tmp">
    
     <div class="button-container">
         <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Quiz</button>
@@ -580,7 +637,7 @@ export function item( section, meta_key ) {
                 </div>
               </div>
             </div>
-            <div class="col d-flex justify-content-start align-items-end my-3">
+            <div class="col d-flex justify-content-start align-items-end my-3 btn-pos">
               <button class="btn btn-outline-${ color } btn-lg" ?data-hidden=${ section === 'component' } @click=${ () => dms.events.onStart( section, meta.key ) }>
                 <span data-lang="${ section + '_start' }">${ dms.text[ section + '_start' ] }</span><i class="bi bi-chevron-right"></i>
               </button>
@@ -926,8 +983,8 @@ export function editor( tool_key, app_key ) {
         <button class="btn btn-apps text-nowrap m-1" title="${ dms.text.tooltip_save }" data-lang="tooltip_save-title" ?data-hidden=${ !is_creator } @click=${ () => dms.events.onSave( app_meta.key ) }>
           <span data-lang="btn_save_app">${ dms.text.save_app }</span>
         </button>
-        <button class="btn btn-tools text-nowrap m-1  btnCreate" title="${ dms.text.tooltip_create }" data-lang="tooltip_create-title" ?data-hidden=${ is_creator } @click=${ () => dms.events.onCreate( tool_key ) }>
-          <span data-lang="btn_create_app">${ dms.text.btn_create_app }</span>
+        <button class="btn btn-tools text-nowrap m-1" title="${ dms.text.tooltip_create }" data-lang="tooltip_create-title" ?data-hidden=${ is_creator } @click=${ () => dms.events.onCreate( tool_key ) }>
+          <span data-lang="btn_last_step">${ dms.text.btn_last_step }</span>
         </button>
         <button class="btn btn-light text-nowrap m-1 disabled" title="tooltip_take" data-lang="tooltip_take-title" ?data-hidden=${ !is_creator } @click=${ () => dms.events.onTake }>
           <i class="bi bi-share"></i>
@@ -1022,13 +1079,13 @@ export function show( app_key ) {
           <i class="bi bi-share"></i>
           <span data-lang="btn_share">${ dms.text.btn_share }</span>
         </button>
+                <button class="btn btn-primary mb-2" @click=${ () => dms.events.onStart( 'tool', app_meta.component, app_meta.key ) }>
+          <span data-lang="${ is_creator ? 'btn_edit' : 'btn_template' }">${ dms.text[ is_creator ? 'btn_edit' : 'btn_template' ] }</span>
+          <i class="bi bi-chevron-right"></i>
+        </button>
         <button class="btn btn-info mb-2 mx-2" disabled>
           <i class="bi bi-bar-chart-line"></i>
           <span data-lang="btn_results">${ dms.text.btn_results }</span>
-        </button>
-        <button class="btn btn-primary mb-2" @click=${ () => dms.events.onStart( 'tool', app_meta.component, app_meta.key ) }>
-          <span data-lang="${ is_creator ? 'btn_edit' : 'btn_template' }">${ dms.text[ is_creator ? 'btn_edit' : 'btn_template' ] }</span>
-          <i class="bi bi-chevron-right"></i>
         </button>
       </div>
     </div>
