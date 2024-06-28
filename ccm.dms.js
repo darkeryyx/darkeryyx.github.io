@@ -10,6 +10,8 @@
  * (for older version changes see ccm.dms-4.5.0.js)
  */
 
+
+
 ( () => {
   const component = {
     name: 'dms',
@@ -307,6 +309,15 @@
           $.params( values );
           this.render.cards( section, values );
         },
+        onToolSearch: (section, tool) => {
+          // const values = { sort: element.querySelector( '#section-sort' ).value };
+        //   const values = { sort: "", title: "", tool: tool, creator: "", category: "" }
+          // element.querySelectorAll( 'input[type="search"]' ).forEach( input => values[ input.id.split( '-' ).pop() ] = input.value );
+         //  values.tool = tool
+           const values = { sort: "", title: "", tool: tool, creator: "", category: "" }
+           $.params( values );
+           this.render.cards( section, values );
+         },
         onItem: async ( section, meta_key ) => {
           $.params( { view: section, id: meta_key }, true, true );
           await this.refresh();
@@ -497,10 +508,10 @@
        * @type {Object.<string,Function>}
        */
       this.render = {
-        header: active => this.html.render( this.html.header( active ), this.element.querySelector( 'header' ) ),
+        header: active => this.html.render( this.html.newHeader( active ), this.element.querySelector( 'header' ) ),
         home: () => {
           this.render.header();
-          this.html.render( this.html.home(), element );
+          this.html.render( this.html.newHome(), element );
           this.lang && this.lang.translate();
         },
         list: ( section, values ) => {

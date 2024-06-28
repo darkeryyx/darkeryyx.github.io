@@ -19,6 +19,7 @@ export function main() {
     <header class="navbar navbar-expand-md navbar-light bg-light border-bottom py-1">
       ${ header() }
     </header>
+    <div id="test-container"></div>
     <main></main>
     <footer class="text-center text-lg-start bg-light text-muted border-top text-nowrap">
       ${ footer() }
@@ -117,6 +118,34 @@ export function main() {
   }
 }
 
+export function newHeader(active) {
+  return html `
+  <div class= "header" >
+    <div class="container">
+      <div class="logo-container">
+        <a href="test.html" class="logo-link">
+          <img src="https://i.ibb.co/wByGHv0/logo-new.png" alt="Digital Makerspace Logo" class="logo-img">
+          <span class="logo-text">Digital Makerspace</span>
+        </a>
+      </div>
+      <div class ="nav">
+        <ul >
+          <li><a class="nav-link nav-link-selber-bauen" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'tools' ) }>Selber Bauen</a></li>
+          <li><a class="nav-link nav-link-vorlagen-nutzen" ?data-focus-apps=${ active === 'apps' } @click=${ () => dms.events.onList( 'apps' ) }>Vorlagen nutzen</a></li>
+          <li><a href="#" class="nav-link nav-link-entwickeln">Entwickeln</a></li>
+        </ul>
+      </div>
+      <div class="login">
+        <a class="login-btn"  @click=${ () => {debugger; dms.events.onLogin()} } >Login</a>
+      </div>
+      <div class="mobile-menu">
+        <i class="fas fa-bars"></i>
+      </div>
+    </div>
+    </div>
+  `
+}
+
 /**
  * HTML template for header
  * @param {string} [active] - 'tools', 'apps' or 'developer'
@@ -195,6 +224,68 @@ export function header( active ) {
     </div>
   `;
 }
+
+export function newHome(active) {
+  return html`
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMxRqZ/Z0N6U1h5jOVJ6m5eV8i/RaYwa2SA6C2" crossorigin="anonymous">
+</head>
+  <div class ="body">
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          <h2 class ="ueberschrift">In wenigen Schritten zur eigenen App - auch ohne Vorkenntnisse!</h2>
+          <p class="bietet" >Das bietet der Digital Makerspace:</p>
+          <ul class ="fakten" >
+            <li>Selber Bauen von Apps- auch ohne Vorkenntnisse!</li>
+            <li>Vorlagen zum bauen von Apps</li>
+            <li>Entwickeln</li>
+          </ul>
+        </div>
+        <div class="hero-video">
+          <video poster="https://i.ibb.co/XZD0sMV/thumbnail.png" controls>
+            <source src="https://akless.github.io/akless/dms/IntroOERview.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </section>
+
+    <section class="features">
+      <div class="container">
+        <h2>Lege hier los!</h2>
+        <div class="feature-grid">
+          <div class="feature-card">
+            <img src="https://i.ibb.co/TM76gnb/toolbox.png" alt="Selber Bauen Icon" class="static-img">
+            <img src="https://i.ibb.co/hdGM1q8/toolbox.gif" alt="Selber Bauen Icon Animated" class="animated-img">
+            <h3>Selber Bauen</h3>
+            <p>Baue Apps ohne Vorkenntnisse</p>
+            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'tools' ) } >Bauen</a>
+          </div>
+          <div class="feature-card">
+            <img src="https://i.ibb.co/QY1DPWS/vorlage.png" alt="Vorlagen Icon" class="static-img">
+            <img src="https://i.ibb.co/Ydfm51V/vorlage.gif" alt="Vorlagen Icon Animated" class="animated-img">
+            <h3>Vorlagen nutzen</h3>
+            <p>Starte mit Vorlagen</p>
+            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'apps' ) }>Vorlagen</a>
+          </div>
+          <div class="feature-card">
+            <img src="https://i.ibb.co/rFvGHh6/web-developer.png" alt="Entwickeln Icon" class="static-img">
+            <img src="https://i.ibb.co/3Ndfxvg/web-developer.gif " alt="Entwickeln Icon Animated" class="animated-img">
+            <h3>Entwickeln</h3>
+            <p>Starte mit der Entwicklung</p>
+            <a href="#" class="feature-btn">Entwickeln</a>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  `
+}
+
 
 /**
  * HTML template for home section
@@ -302,17 +393,17 @@ export function list( section, values ) {
  * @param {string} text - trailer text
  * @returns {TemplateResult}
  */
-function trailer( section, title, text ) {
+function trailer(section, title, text) {
   return html`
     <section id="trailer" class="border-bottom">
-      <div class="container pt-4 pb-2">
+      <div class="container testClass pt-4 pb-2 bg-${title}">
         <div class="row">
           <div class="col">
-            <h1 class="text-${ section }" data-lang="${ title }">${ dms.text[ title ] }</h1>
-            <p data-lang="${ text }">${ dms.text[ text ] }</p>
+            <h1 class="banner text-${section}" data-lang="${title}">${dms.text[title]}</h1>
+            <p data-lang="${text}">${dms.text[text]}</p>
           </div>
           <div class="col">
-            <video controls poster="https://ccmjs.github.io/digital-makerspace/resources/img/trailer.jpg" alt="Einführungsvideo" title="Platzhalter für Video" class="img-thumbnail">
+            <img src="https://i.ibb.co/n3Gg5pn/logo-blau.png" alt="Digital Makerspace Logo" class="bannerLogo">
           </div>
         </div>
       </div>
@@ -330,21 +421,28 @@ function metaSearch( section, values = {} ) {
   const options = data[ section !== 'apps' ? 'components' : 'apps' ].options;
   return html`
     <section id="search_controls" class="bg-${ section }-light">
+   
+    <div class="button-container">
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Quiz</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Bildkarte</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>PDF-Viewer</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>App-Sammlung</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Lückentext</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Live-Umfrage</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Slidecast</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Parkhaus</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>plotly</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>ER-REL-Trainer</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Code-Editor</button>
+        <button class="custom-button" @click=${event => { dms.events.onToolSearch(section, event.target.textContent) }}>Multiple Choice</button>
+    </div>
+
       <div class="container">
         <form>
           <div class="row py-2">
-            ${ filterBox( 'title', 'search_title', values.title || '' ) }
-            ${ section === 'apps' ? filterBox( 'tool', 'search_tool', values.tool || '' ) : '' }
-            ${ filterBox( 'creator', 'search_creator', values.creator || '' ) }
-            ${ filterBox( 'category', 'search_category', values.category || '' ) }
+
             <div class="col">
-              <label for="section-sort" class="col-form-label" data-lang="search_sort">${ dms.text.search_sort }</label>
-              <select id="section-sort" class="form-select" @change=${ event => dms.events.onSearch( section, 'sort', event.target.value ) }>
-                <option value="" data-lang="search_sort_abc">${ dms.text.search_sort_abc }</option>
-                <option value="newest" data-lang="search_sort_newest">${ dms.text.search_sort_newest }</option>
-                <option value="rating" data-lang="search_sort_rating">${ dms.text.search_sort_rating }</option>
-                <option value="used" data-lang="search_sort_used" ?data-hidden=${ section === 'apps' }>${ dms.text.search_sort_used }</option>
-              </select>
+
             </div>
           </div>
         </form>
@@ -406,12 +504,10 @@ export function cards( section, values ) {
     const ratings = section === 'apps' ? meta.ratings : meta.ratings[ section ];
     return html`
       <div class="p-2">
-        <div class="card h-100" @click=${ () => dms.events.onItem( item, meta.key ) }>
-          <div class="card-header d-flex p-3">
-            <img class="me-3" src="${ meta.icon || dms.icon }" width="64" height="64" alt="${ dms.text[ 'alt_' + item ] }" data-lang="alt_${ item }-alt">
+        <div class="card h-100 " @click=${ () => dms.events.onItem( item, meta.key ) }>
+          <div class="card-header d-flex p-3 ">
             <div class="overflow-hidden">
               <h5 class="card-title mb-0">${ meta.title }</h5>
-              <span class="badge rounded-pill bg-${ section }" data-lang="${ item }">${ dms.text[ item ] }</span>
               <span class="badge rounded-pill bg-tools-light text-dark" title="${ dms.text.tooltip_tool }" data-lang="tooltip_tool-title" ?data-hidden=${ !meta.app }>${ meta.tool }</span>
             </div>
           </div>
@@ -440,7 +536,7 @@ export function cards( section, values ) {
 
 /**
  * HTML template for tool/app/component section
- * @param {string} section - 'tool', 'app' or 'component'
+ * @param {string} section - 'tool', 'app' oder 'component'
  * @param {string|string[]} meta_key - metadata key
  * @returns {TemplateResult}
  */
@@ -461,7 +557,7 @@ export function item( section, meta_key ) {
         { title: `<span data-lang="${ section + 's' }">${ dms.text[ section + 's' ] }</span>`, onClick: () => dms.events.onList( section + 's' ) },
         { title: meta.title }
       ], 'sm' ) }
-      <div class="container sm bg-white rounded border">
+      <div class="container sm bg-white rounded border mb-4">
         
         <!-- Trailer -->
         <section class="container trailer">
@@ -494,14 +590,17 @@ export function item( section, meta_key ) {
             </div>
           </div>
         </section>
+      
 
-        <!-- Description -->
+      
+        <!-- Beschreibung -->
         <section class="container py-3" ?data-hidden=${ !meta.description }>
           <h6 class="text-decoration-underline" data-lang="meta_description">${ dms.text.meta_description }</h6>
           <p class="text-muted mb-0">${ unsafeHTML( meta.description ) }</p>
         </section>
-
-        <!-- Information -->
+      </div>
+      <div class="container sm bg-white rounded border">
+        <!-- Informationen -->
         <section class="container py-3">
           <h6 class="text-decoration-underline" data-lang="meta_infos">${ dms.text.meta_infos }</h6>
           <small>
@@ -827,7 +926,7 @@ export function editor( tool_key, app_key ) {
         <button class="btn btn-apps text-nowrap m-1" title="${ dms.text.tooltip_save }" data-lang="tooltip_save-title" ?data-hidden=${ !is_creator } @click=${ () => dms.events.onSave( app_meta.key ) }>
           <span data-lang="btn_save_app">${ dms.text.save_app }</span>
         </button>
-        <button class="btn btn-tools text-nowrap m-1" title="${ dms.text.tooltip_create }" data-lang="tooltip_create-title" ?data-hidden=${ is_creator } @click=${ () => dms.events.onCreate( tool_key ) }>
+        <button class="btn btn-tools text-nowrap m-1  btnCreate" title="${ dms.text.tooltip_create }" data-lang="tooltip_create-title" ?data-hidden=${ is_creator } @click=${ () => dms.events.onCreate( tool_key ) }>
           <span data-lang="btn_create_app">${ dms.text.btn_create_app }</span>
         </button>
         <button class="btn btn-light text-nowrap m-1 disabled" title="tooltip_take" data-lang="tooltip_take-title" ?data-hidden=${ !is_creator } @click=${ () => dms.events.onTake }>
@@ -981,3 +1080,138 @@ export function register() {
     </section>
   `;
 }
+
+export function test() {
+  return html`
+    <h1>XDDDDD</h1>
+  `
+}
+/**
+ * HTML template for searching metadata
+ * @param {string} section - 'tools', 'apps' oder 'components'
+ * @param {Object} [values] - initial values for input fields
+ * @returns {TemplateResult}
+ 
+function metaSearch(section, values = {}) {
+  const options = data[section !== 'apps' ? 'components' : 'apps'].options;
+  return html`
+    <section id="search_controls" class="bg-${section}-light">
+      <div class="container">
+        <form>
+          <div class="row py-2">
+            <p>Wonach suchst du?</p>
+            ${section === 'apps' ? filterDropdown('tool', 'search_tool', values.tool || '') : ''}
+            <div class="col">
+              <label for="section-sort" class="col-form-label" data-lang="search_sort">${dms.text.search_sort}</label>
+              <select id="section-sort" class="form-select" @change=${event => handleSortChange(event, section)}>
+                <option value="" data-lang="search_sort_abc">${dms.text.search_sort_abc}</option>
+                <option value="newest" data-lang="search_sort_newest">${dms.text.search_sort_newest}</option>
+                <option value="rating" data-lang="search_sort_rating">${dms.text.search_sort_rating}</option>
+                <option value="used" data-lang="search_sort_used" ?data-hidden=${section === 'apps'}>${dms.text.search_sort_used}</option>
+              </select>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+  `;
+
+  function filterDropdown(key, title, value) {
+    return html`
+      <div class="col">
+        <label for="section-${section}-${key}" class="col-form-label" data-lang="${title}">${dms.text[title]}</label>
+        <select id="section-${section}-${key}" class="form-select" @change=${event => handleFilterChange(event, section, key)}>
+          <option value="">${dms.text.search_select_default}</option>
+          ${options[key].map(word => html`<option value="${word}">${word}</option>`)}
+        </select>
+      </div>
+    `;
+  }
+
+  function handleFilterChange(event, section, key) {
+    const value = event.target.value;
+    values[key] = value;
+    console.log(`Filter changed: ${key} = ${value}`, values); // Debugging-Hinweis
+    dms.events.onSearch(section, values);
+  }
+
+  function handleSortChange(event, section) {
+    const value = event.target.value;
+    values.sort = value;
+    console.log(`Sort changed: ${value}`, values); // Debugging-Hinweis
+    dms.events.onSearch(section, values);
+  }
+}
+/**
+ * HTML template for search results
+ * @param {string} section - 'tools', 'apps' oder 'components'
+ * @param {Object} [values] - filter and sort values
+ * @returns {TemplateResult}
+ 
+export function cards(section, values) {
+  const meta = data[section !== 'apps' ? 'components' : section].arr.filter(meta =>
+       (meta.listed || (dms.user.getValue() || {}).key === meta._.creator)
+    && (!values.tool || meta.tool.toLowerCase().includes(values.tool.toLowerCase()))
+    && (!values.title || meta.title.toLowerCase().includes(values.title.toLowerCase()))
+    && (!values.creator || meta.creator.toLowerCase().includes(values.creator.toLowerCase()))
+    && (!values.category || meta.tags.find(tag => tag.toLowerCase().includes(values.category.toLowerCase())))
+  ).sort((a, b) => {
+    switch (values.sort) {
+      case 'rating':
+        const type = section.slice(0, -1);
+        return (a.app ? b.rating - a.rating : b.rating[type] - a.rating[type])
+          || (Object.keys(b.app ? b.ratings : b.ratings[section]).length - Object.keys(a.app ? a.ratings : a.ratings[section]).length);
+      case 'used':
+        return b.apps - a.apps;
+      case 'newest':
+        return new Date(b.created_at) - new Date(a.created_at);
+      default:
+        return a.title < b.title ? -1 : (a.title > b.title ? 1 : 0);
+    }
+  });
+
+  console.log('Filtered meta:', meta); // Debugging-Hinweis
+
+  return html`
+    <div class="container-fluid p-2">
+      <div class="d-flex justify-content-center flex-wrap">
+        ${repeat(meta, meta => meta.key, meta => card(meta))}
+      </div>
+    </div>
+  `;
+
+  function card(meta) {
+    const item = section.slice(0, -1);
+    const rating = section === 'apps' ? meta.rating : meta.rating[item];
+    const ratings = section === 'apps' ? meta.ratings : meta.ratings[section];
+    return html`
+      <div class="p-2">
+        <div class="card h-100" @click=${() => dms.events.onItem(item, meta.key)}>
+          <div class="card-header d-flex p-3">
+            <div class="overflow-hidden">
+              <h5 class="card-title mb-0">${meta.title}</h5>
+              <span class="badge rounded-pill bg-tools-light text-dark" title="${dms.text.tooltip_tool}" data-lang="tooltip_tool-title" ?data-hidden=${!meta.app}>${meta.tool}</span>
+            </div>
+          </div>
+          <div class="card-body py-2">${meta.subject}</div>
+          <div class="card-footer d-flex justify-content-between text-nowrap">
+            <small class="d-flex align-items-center" ?data-hidden=${section === 'tools'}>
+              <img src="${dms.picture}" alt="${dms.text.alt_user}" class="rounded me-1" width="18" height="18" data-lang="alt_user-alt">
+              ${meta.creator}
+            </small>
+            <small class="px-1 bg-apps-light rounded" title="${dms.text.tooltip_apps}" data-lang="tooltip_apps-title" ?data-hidden=${section !== 'tools'}>
+              ${meta.apps}
+              <span data-lang="apps">${dms.text.apps}</span>
+            </small>
+            <small>
+              <span class="text-${section}" title="${dms.text['tooltip_rating_' + item]}" data-lang="tooltip_rating_${item}-title">
+                ${[1, 2, 3, 4, 5].map(star => html`<i class="bi bi-star${star <= rating ? '-fill' : (star < rating + 1 ? '-half' : '')}"></i> `)}
+              </span>
+              <span title="${dms.text.tooltip_ratings}" data-lang="tooltip_ratings-title">(${Object.keys(ratings).length})</span>
+            </small>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+}*/

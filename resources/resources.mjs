@@ -193,8 +193,8 @@ const de = {
   "alert_template": "Als Vorlage genutzte App",
   "app": "App",
   "app_creator": "Author",
-  "app_start": "App anzeigen",
-  "apps": "Apps",
+  "app_start": "Vorlage individualisieren",
+  "apps": "Vorlagen",
   "apps_trailer": "Verwende von anderen erstellte Apps als Vorlage für eigene Apps und passe sie dann an deine eigenen individuellen Bedürfnisse an.",
   "breadcrumb": "Du bist hier:",
   "btn_back": "Zurück",
@@ -216,7 +216,7 @@ const de = {
   "btn_save_app": "Speichern",
   "btn_share": "App teilen",
   "btn_take": "Editor teilen",
-  "btn_template": "Ähnliche App erstellen",
+  "btn_template": "Vorlage individualisieren",
   "btn_toolbox": "Öffne Werkzeugkasten",
   "btn_trash": "Papierkorb",
   "component": "Komponente",
@@ -240,7 +240,7 @@ const de = {
   "home_tools_title": "Baue eigene Apps",
   "home_tools_text": "Der Digital Makerspace bietet kostenlose Werkzeuge, mit denen ohne Programmierkenntnisse eigene Apps für das Web erstellt werden können.",
   "home_trailer_tools_title": "Erstelle Apps",
-  "home_trailer_tools_text": "Nutze die Werkzeuge, um eigene Apps zu bauen. Diese können im Web platziert, geteilt und in anderen Apps verwendet werden.",
+  "home_trailer_tools_text": "Wähle hier die App aus, die du bauen möchtest - keine Programmierkenntnisse benötigt! Diese können im Web platziert, geteilt und in anderen Apps verwendet werden.",
   "home_trailer_apps_title": "Nutze Apps von anderen",
   "home_trailer_apps_text": "Verwende von anderen erstellte Apps als Vorlage für eigene Apps und passe sie dann an deine eigenen individuellen Bedürfnisse an.",
   "home_trailer_developer_title": "Entwickle Werkzeuge",
@@ -307,8 +307,13 @@ const de = {
   "title": "Digital Makerspace",
   "tool": "Werkzeug",
   "tool_start": "Starte App-Editor",
-  "tools": "Werkzeuge",
-  "tools_trailer": "Nutze die Werkzeuge, um eigene Apps zu bauen. Diese können im Web platziert, geteilt und in anderen Apps verwendet werden.",
+  "tools": "Bauen",
+  "tools_trailer": `Wähle hier die App aus, die du bauen möchtest - keine Programmierkenntnisse benötigt!<br><br>Diese können:<br>
+<ul>
+  <li>Im Web platziert werden</li>
+  <li>Mit anderen geteilt werden</li>
+  <li>in anderen Apps verwendet werden</li>
+</ul>`,
   "tooltip_apps": "So viele Apps wurden mit diesem Werkzeug veröffentlicht.",
   "tooltip_back_app": "Zurück zur App",
   "tooltip_back_component": "Zurück zur Komponente",
