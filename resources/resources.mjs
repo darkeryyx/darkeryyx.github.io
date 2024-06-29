@@ -194,7 +194,9 @@ const de = {
   "app": "App",
   "app_creator": "Author",
   "app_final": "App anzeigen",
-  "app_start": "Vorlage anzeigen",
+  "app_start": "App anzeigen",
+  "app_start_page1":"1",
+  "app_start_page2":"2",
   "apps": "Vorlagen",
   "apps_trailer": "Verwende von anderen erstellte Apps als Vorlage für eigene Apps und passe sie dann an deine eigenen individuellen Bedürfnisse an.",
   "breadcrumb": "Du bist hier:",
@@ -900,4 +902,8 @@ export const live = {
   } ],
   "text": de,
   "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.min.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/user/resources/resources.js", "cloud" ] ]
+};
+
+window.onload = function() {
+  window.scrollTo(0, 0);
 };
