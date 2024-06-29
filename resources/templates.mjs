@@ -135,9 +135,9 @@ export function newHeader(active) {
         </div>
         <div class="nav">
           <ul>
-            <li><a class="nav-link nav-link-selber-bauen" ?data-focus-tools=${active === 'tools'} @click=${() => dms.events.onList('tools')}>Selber Bauen</a></li>
-            <li><a class="nav-link nav-link-vorlagen-nutzen" ?data-focus-apps=${active === 'apps'} @click=${() => dms.events.onList('apps')}>Vorlagen nutzen</a></li>
-            <li><a href="#" class="nav-link nav-link-entwickeln">Entwickeln</a></li>
+            <li><a class="nav-link nav-link-selber-bauen" ?data-focus-tools=${active === 'tools'} @click=${() => dms.events.onList('tools')}style="color: initial;">Selber Bauen</a></li>
+            <li><a class="nav-link nav-link-vorlagen-nutzen" ?data-focus-apps=${active === 'apps'} @click=${() => dms.events.onList('apps')}style="color: initial;">Vorlagen nutzen</a></li>
+            <li><a href="#" class="nav-link nav-link-entwickeln"style="color: initial;">Entwickeln</a></li>
           </ul>
         </div>
         <div class="login">
@@ -320,21 +320,21 @@ export function newHome(active) {
             <img src="https://i.ibb.co/hdGM1q8/toolbox.gif" alt="Selber Bauen Icon Animated" class="animated-img">
             <h3>Selber Bauen</h3>
             <p>Baue Apps ohne Vorkenntnisse</p>
-            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'tools' ) } >Bauen</a>
+            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'tools' ) } >Jetzt bauen!</a>
           </div>
           <div class="feature-card">
             <img src="https://i.ibb.co/QY1DPWS/vorlage.png" alt="Vorlagen Icon" class="static-img">
             <img src="https://i.ibb.co/Ydfm51V/vorlage.gif" alt="Vorlagen Icon Animated" class="animated-img">
             <h3>Vorlagen nutzen</h3>
             <p>Nutze Vorlagen um eine App zu bauen</p>
-            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'apps' ) }>Vorlagen</a>
+            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'apps' ) }>Jetzt Vorlage nutzen!</a>
           </div>
           <div class="feature-card">
             <img src="https://i.ibb.co/rFvGHh6/web-developer.png" alt="Entwickeln Icon" class="static-img">
             <img src="https://i.ibb.co/3Ndfxvg/web-developer.gif " alt="Entwickeln Icon Animated" class="animated-img">
             <h3>Entwickeln</h3>
             <p>Starte mit der Entwicklung</p>
-            <a href="#" class="feature-btn">Entwickeln</a>
+            <a href="#" class="feature-btn">Jetzt entwickeln!</a>
           </div>
         </div>
       </div>
@@ -467,7 +467,7 @@ function trailer(section, title, text) {
         <div class="row">
           <div class="col">
             <h1 class="banner text-${section}" data-lang="${title}">${dms.text[title]}</h1>
-            <p data-lang="${text}" style="color: white; margin-top: 5%; margin-bottom: 8%; font-size: 17px; margin-left: 14%;">${dms.text[text]}</p>
+            <p data-lang="${text}" style="color: white; margin-top: 5%; margin-bottom: 8%; font-size: 18px; margin-left: 14%;">${dms.text[text]}</p>
           </div>
           <div class="col">
             <img src="${imageUrl}" alt="Digital Makerspace Logo" class="bannerLogo">
@@ -491,7 +491,7 @@ function metaSearch( section, values = {} ) {
     <div class="containerDrop">
         <div class="text">Wählen Sie zunächst die Kategorie aus:</div>
         <div class="dropdown-container">
-            <button class="dropdown-toggle-button" @click=${() => toggleDropdown()}>Wählen Sie ein Tool</button>
+            <button class="dropdown-toggle-button" @click=${() => toggleDropdown()}>Hier klicken</button>
             <div class="dropdown-menu" id="dropdownMenu">
                 <button class="dropdown-item" @click=${event => { handleClick('Quiz') }}>Quiz</button>
                 <button class="dropdown-item" @click=${event => { handleClick('Bildkarte') }}>Bildkarte</button>
