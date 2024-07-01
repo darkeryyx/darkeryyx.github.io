@@ -903,7 +903,3 @@ export const live = {
   "text": de,
   "user": [ "ccm.instance", "https://ccmjs.github.io/akless-components/user/versions/ccm.user-9.7.2.min.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/user/resources/resources.js", "cloud" ] ]
 };
-
-window.onload = function() {
-  window.scrollTo(0, 0);
-};

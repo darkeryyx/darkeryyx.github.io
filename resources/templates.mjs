@@ -10,6 +10,10 @@ export { render };
 let dms, data;
 export const share = ( _dms, _data ) => { dms = _dms; data = _data };
 
+function scrollToTop() {
+  document.body.scrollIntoView({ behavior: 'instant', block: 'start' });
+}
+
 /**
  * main HTML template
  * @returns {TemplateResult}
@@ -320,14 +324,14 @@ export function newHome(active) {
             <img src="https://i.ibb.co/hdGM1q8/toolbox.gif" alt="Selber Bauen Icon Animated" class="animated-img">
             <h3>Selber Bauen</h3>
             <p>Baue Apps ohne Vorkenntnisse</p>
-            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'tools' ) } >Jetzt bauen!</a>
+            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => { dms.events.onList('tools'); scrollToTop(); } } >Jetzt bauen!</a>
           </div>
           <div class="feature-card">
             <img src="https://i.ibb.co/QY1DPWS/vorlage.png" alt="Vorlagen Icon" class="static-img">
             <img src="https://i.ibb.co/Ydfm51V/vorlage.gif" alt="Vorlagen Icon Animated" class="animated-img">
             <h3>Vorlagen nutzen</h3>
             <p>Nutze Vorlagen um eine App zu bauen</p>
-            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => dms.events.onList( 'apps' ) }>Jetzt Vorlage nutzen!</a>
+            <a class="feature-btn" ?data-focus-tools=${ active === 'tools' } @click=${ () => {dms.events.onList( 'apps' ); scrollToTop(); } }>Jetzt Vorlage nutzen!</a>
           </div>
           <div class="feature-card">
             <img src="https://i.ibb.co/rFvGHh6/web-developer.png" alt="Entwickeln Icon" class="static-img">
@@ -598,7 +602,7 @@ export function cards( section, values ) {
     const ratings = section === 'apps' ? meta.ratings : meta.ratings[ section ];
     return html`
       <div class="p-2">
-        <div class="card h-100 " @click=${ () => dms.events.onItem( item, meta.key ) }>
+        <div class="card h-100 " @click=${ () => {dms.events.onItem( item, meta.key ); scrollToTop(); } }>
           <div class="card-header d-flex p-3 ">
             <div class="overflow-hidden">
               <h5 class="card-title mb-0">${ meta.title }</h5>
@@ -674,15 +678,16 @@ export function item( section, meta_key ) {
                 </div>
               </div>
             </div>
-            <div class="col d-flex justify-content-start align-items-end my-3 btn-pos btn-posEnd">
-            <p>Super, deine App ist fertig!</p>
-              <button class="btn btn-outline-${ color } btn-lg" ?data-hidden=${ section === 'component' } @click=${ () => dms.events.onStart( section, meta.key ) }>
-                <span data-lang="${ section + '_start' }">${ dms.text[ section + '_start' ] }</span><i class="bi bi-chevron-right"></i>
-              </button>
-              <a class="btn btn-outline-${ color } btn-lg" href="${ code }" target="_blank" ?data-hidden=${ section !== 'component' }>
-                <span data-lang="${ section + '_start' }">${ dms.text[ section + '_start' ] }</span><i class="bi bi-chevron-right"></i>
-              </a>
-            </div>
+              <div class="col d-flex justify-content-start align-items-end my-3 btn-pos btn-posEnd">
+                ${is_creator ? html`<p>Super, deine App ist fertig!</p>` : ''}
+                <button class="btn btn-outline-${ color } btn-lg" ?data-hidden=${ section === 'component' } @click=${ () => dms.events.onStart( section, meta.key ) }>
+                  <span data-lang="${ is_creator ? 'app_show' : 'template_show' }">${ is_creator ? 'App anzeigen' : 'Vorlage anzeigen' }</span>
+                  <i class="bi bi-chevron-right"></i>
+                </button>
+                <a class="btn btn-outline-${ color } btn-lg" href="${ code }" target="_blank" ?data-hidden=${ section !== 'component' }>
+                  <span data-lang="${ section + '_start' }">${ dms.text[ section + '_start' ] }</span><i class="bi bi-chevron-right"></i>
+                </a>
+              </div>
           </div>
         </section>
       
@@ -1021,7 +1026,7 @@ export function editor( tool_key, app_key ) {
         <button class="btn btn-apps text-nowrap m-1" title="${ dms.text.tooltip_save }" data-lang="tooltip_save-title" ?data-hidden=${ !is_creator } @click=${ () => dms.events.onSave( app_meta.key ) }>
           <span data-lang="btn_save_app">${ dms.text.save_app }</span>
         </button>
-        <button class="btn btn-tools text-nowrap m-1" title="${ dms.text.tooltip_create }" data-lang="tooltip_create-title" ?data-hidden=${ is_creator } @click=${ () => dms.events.onCreate( tool_key ) }>
+        <button class="btn btn-tools text-nowrap m-1" title="${ dms.text.tooltip_create }" data-lang="tooltip_create-title" ?data-hidden=${ is_creator } @click=${ () =>{ dms.events.onCreate( tool_key ); scrollToTop(); } }>
           <span data-lang="btn_last_step">${ dms.text.btn_last_step }</span>
         </button>
         <button class="btn btn-light text-nowrap m-1 disabled" title="tooltip_take" data-lang="tooltip_take-title" ?data-hidden=${ !is_creator } @click=${ () => dms.events.onTake }>
@@ -1052,12 +1057,12 @@ export function create( tool_key ) {
         { title: `<span data-lang="btn_create_app">${ dms.text.btn_create_app }</span>` }
       ] ) }
       <section class="container bg-white border p-4">
-        <form id="form" @submit=${ event => { event.preventDefault(); dms.events.onCreateSubmit( tool_key ); } }>
+        <form id="form" @submit=${ event =>{ { event.preventDefault(); dms.events.onCreateSubmit( tool_key ); scrollToTop(); }} }>
           ${ inputs( 'app' ) }
         </form>
       </section>
       <div class="container px-0 py-3 d-flex justify-content-between">
-        <button class="btn btn-secondary" @click=${ () => dms.events.onStart( 'tool', tool_key, true ) }>
+        <button class="btn btn-secondary" @click=${ () => {dms.events.onStart( 'tool', tool_key, true ); scrollToTop(); } }>
           <i class="bi bi-chevron-left"></i>
           <span data-lang="btn_back">${ dms.text.btn_back }</span>
         </button>
@@ -1085,7 +1090,7 @@ export function preview( tool_key ) {
       ] ) }
       <section id="preview" class="container bg-white border p-0"></section>
       <div class="container px-0 py-3 d-flex justify-content-between">
-        <button class="btn btn-secondary" @click=${ () => dms.events.onStart( 'tool', tool_key, true ) }>
+        <button class="btn btn-secondary" @click=${ () => dms.events.onStart( 'tool', tool_key, true )}>
           <i class="bi bi-chevron-left"></i>
           <span title="${ dms.text.tooltip_back_editor }" data-lang="btn_back tooltip_back_editor-title">${ dms.text.btn_back }</span>
         </button>
