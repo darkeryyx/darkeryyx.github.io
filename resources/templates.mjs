@@ -493,7 +493,7 @@ function metaSearch( section, values = {} ) {
     <section id="search_controls" class="bg-${ section }-tmp">
    
     <div class="containerDrop">
-        <div class="text">Wählen Sie zunächst die Kategorie aus:</div>
+        <div class="text">Wählen Sie eine Kategorie aus:</div>
         <div class="dropdown-container">
             <button class="dropdown-toggle-button" @click=${() => toggleDropdown()}>Hier klicken</button>
             <div class="dropdown-menu" id="dropdownMenu">
@@ -679,12 +679,12 @@ export function item( section, meta_key ) {
               </div>
             </div>
               <div class="col d-flex justify-content-start align-items-end my-3 btn-pos btn-posEnd">
-                ${is_creator ? html`<p>Super, deine App ist fertig!</p>` : ''}
+                ${is_creator ? html`<p class="mb-0 me-3">Super, deine App ist fertig!</p>` : ''}
                 <button class="btn btn-outline-${ color } btn-lg" ?data-hidden=${ section === 'component' } @click=${ () => dms.events.onStart( section, meta.key ) }>
                   <span data-lang="${ is_creator ? 'app_show' : 'template_show' }">${ is_creator ? 'App anzeigen' : 'Vorlage anzeigen' }</span>
                   <i class="bi bi-chevron-right"></i>
                 </button>
-                <a class="btn btn-outline-${ color } btn-lg" href="${ code }" target="_blank" ?data-hidden=${ section !== 'component' }>
+                <a class="btn btn-outline-${ color } btn-lg ms-2" href="${ code }" target="_blank" ?data-hidden=${ section !== 'component' }>
                   <span data-lang="${ section + '_start' }">${ dms.text[ section + '_start' ] }</span><i class="bi bi-chevron-right"></i>
                 </a>
               </div>
