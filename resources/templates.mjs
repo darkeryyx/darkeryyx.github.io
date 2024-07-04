@@ -50,8 +50,7 @@ export function main() {
           <div class="row mt-3">
             <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
               <h6 class="text-uppercase fw-bold mb-4 d-flex align-items-center">
-                <img class="me-2" alt="${ dms.text.alt_logo_dms }" width="24" height="24" src="${ dms.icon }" data-lang="alt_logo_dms-alt">
-                <span data-lang="title">${ dms.text.title }</span>
+                <img class="me-2" alt="${ dms.text.alt_logo_dms }" width="200" height="40" src="${ dms.icon }" data-lang="alt_logo_dms-alt">
               </h6>
               <div class="d-flex align-items-center mb-4">
                 <a href="${ dms.text.href_hbrs }" target="_blank" data-lang="href_hbrs-href">
