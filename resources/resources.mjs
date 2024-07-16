@@ -798,6 +798,7 @@ export const example_apps = {
  */
 export const test = {
   "apps": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-apps" } ],
+
   "comment": [ "ccm.component", "https://ccmjs.github.io/tkless-components/comment/ccm.comment.js", {
     "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/ccm.lang.js", {
       "translations": {
@@ -815,7 +816,9 @@ export const test = {
     "text": [ "ccm.load", "https://ccmjs.github.io/tkless-components/comment/resources/resources.mjs#en" ]
   } ],
   "components": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-components" } ],
+
   "configs": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-configs" } ],
+
   "css": [ "ccm.load",
     [
       "./libs/bootstrap-5/css/bootstrap.css",
@@ -882,6 +885,14 @@ export const live = {
   } ],
   "components": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-components" } ],
   "configs": [ "ccm.store", { "url": "https://ccm2.inf.h-brs.de", "name": "dms2-configs" } ],
+  "css": [ "ccm.load",
+    [
+      "./libs/bootstrap-5/css/bootstrap.css",
+      "./resources/styles.css"
+    ],
+    "./libs/bootstrap-5/css/bootstrap-icons.css",
+    { "url": "./libs/bootstrap-5/css/bootstrap-fonts.css", "context": "head" }
+  ],
   "handover": [ "ccm.component", "https://ccmjs.github.io/akless-components/handover_app/versions/ccm.handover_app-3.0.0.min.js", {
     "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.2.0.min.js", {
       "translations": {

@@ -15,6 +15,7 @@
 ( () => {
   const component = {
     name: 'dms',
+    version: [ 5, 2, 0 ],
     ccm: 'https://ccmjs.github.io/ccm/versions/ccm-27.3.1.min.js',
     config: {
       "apps": [ "ccm.store" ],
@@ -22,7 +23,8 @@
       "css": [ "ccm.load",
         [
           "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/css/bootstrap.min.css",
-          "https://ccmjs.github.io/digital-makerspace/resources/styles.min.css"
+          "https://ccmjs.github.io/digital-makerspace/resources/styles.min.css",
+            "./resources/styles.css"
         ],
         "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/css/bootstrap-icons.min.css",
         { "url": "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/css/bootstrap-fonts.min.css", "context": "head" }
@@ -30,10 +32,10 @@
       "components": [ "ccm.store" ],
       "configs": [ "ccm.store" ],
       "dark": false,
-      "icon": "https://ccmjs.github.io/digital-makerspace/resources/img/icon.png",
+      "icon": "./resources/img/icon.png",
 //    "handover": [ "ccm.component", "https://ccmjs.github.io/akless-components/handover_app/versions/ccm.handover_app-3.0.0.min.js" ],
       "helper": [ "ccm.load", "https://ccmjs.github.io/digital-makerspace/libs/ccm/helper.mjs" ],
-      "html": [ "ccm.load", "https://ccmjs.github.io/digital-makerspace/resources/templates.mjs" ],
+      "html": [ "ccm.load", "./resources/templates.mjs" ],
 //    "lang": [ "ccm.start", "https://ccmjs.github.io/akless-components/lang/versions/ccm.lang-1.1.0.min.js" ],
       "libs": [ "ccm.load", "https://ccmjs.github.io/digital-makerspace/libs/bootstrap-5/js/bootstrap.bundle.min.js" ],
 //    "logger": [ "ccm.instance", "https://ccmjs.github.io/akless-components/log/versions/ccm.log-5.0.1.min.js", [ "ccm.get", "https://ccmjs.github.io/akless-components/log/resources/configs.min.js", "greedy" ] ],
