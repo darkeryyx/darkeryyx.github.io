@@ -474,7 +474,7 @@ img {
 }
 
 .hero {
-  padding: 8rem 0 4rem;
+  padding: 6rem 0 4rem;
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
 }
 
@@ -755,10 +755,10 @@ a:hover{
 }
 .containerDrop {
   display: flex;
-  justify-content: center;
+  /*justify-content: left;*/
+  margin-left: 105px;
   align-items: center;
-  flex-direction: column;
-  text-align: center;
+  /*flex-direction: row;*/
   padding-top: 20px;
   padding-bottom: 20px; /* Geändert, um den gleichen Abstand oben und unten zu haben */
 }
@@ -770,9 +770,8 @@ a:hover{
 
 .dropdown-toggle-button {
   background-color: #ff7f00;
-  border: 2px solid #e25500;
   color: black;
-  padding: 10px 20px;
+  padding: 6px 20px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 5px;

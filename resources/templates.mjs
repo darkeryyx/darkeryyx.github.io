@@ -307,6 +307,7 @@ export function newHome(active) {
           </ul>
         </div>
         <div class="hero-video">
+        <p style="font-size: 16px;margin-bottom: 4px;"> Der Makerspace in 3 Minuten erklärt:</p>
           <video poster="https://i.ibb.co/XZD0sMV/thumbnail.png" controls>
             <source src="https://akless.github.io/akless/dms/IntroOERview.mp4" type="video/mp4">
           </video>
@@ -480,44 +481,115 @@ function trailer(section, title, text) {
     </section>
   `;
 }
+
 /**
  * HTML template for searching metadata
  * @param {string} section - 'tools', 'apps' or 'components'
  * @param {Object} [values] - initial values for input fields
  * @returns {TemplateResult}
  */
-function metaSearch( section, values = {} ) {
-  const options = data[ section !== 'apps' ? 'components' : 'apps' ].options;
+function metaSearch(section, values = {}) {
+  const options = data[section !== 'apps' ? 'components' : 'apps'].options;
   return html`
-    <section id="search_controls" class="bg-${ section }-tmp">
-   
-    <div class="containerDrop">
-        <div class="text">Wählen Sie eine Kategorie aus:</div>
-        <div class="dropdown-container">
-            <button class="dropdown-toggle-button" @click=${() => toggleDropdown()}>Hier klicken</button>
-            <div class="dropdown-menu" id="dropdownMenu">
-                <button class="dropdown-item" @click=${event => { handleClick('Quiz') }}>Quiz</button>
-                <button class="dropdown-item" @click=${event => { handleClick('Bildkarte') }}>Bildkarte</button>
-                <button class="dropdown-item" @click=${event => { handleClick('PDF-Viewer') }}>PDF-Viewer</button>
-                <button class="dropdown-item" @click=${event => { handleClick('App-Sammlung') }}>App-Sammlung</button>
-                <button class="dropdown-item" @click=${event => { handleClick('Lückentext') }}>Lückentext</button>
-                <button class="dropdown-item" @click=${event => { handleClick('Live-Umfrage') }}>Live-Umfrage</button>
-                <button class="dropdown-item" @click=${event => { handleClick('Slidecast') }}>Slidecast</button>
-                <button class="dropdown-item" @click=${event => { handleClick('Parkhaus') }}>Parkhaus</button>
-                <button class="dropdown-item" @click=${event => { handleClick('plotly') }}>plotly</button>
-                <button class="dropdown-item" @click=${event => { handleClick('ER-REL-Trainer') }}>ER-REL-Trainer</button>
-                <button class="dropdown-item" @click=${event => { handleClick('Code-Editor') }}>Code-Editor</button>
-                <button class="dropdown-item" @click=${event => { handleClick('Multiple Choice') }}>Multiple Choice</button>
-            </div>
+    <section id="search_controls" class="bg-${section}-tmp">
+      <div class="containerDrop" style="display: flex; justify-content: flex-start; gap: 10px;">
+        ${filterBox('title', 'search_title', values.title || '')}
+        
+        <div class="col" style="flex: 0 0 auto;">
+          <label for="section-tool" class="col-form-label" data-lang="search_tool">${dms.text.search_tool}</label>
+          <select id="section-tool" style="width: 200px;" class="form-select" @change=${event => dms.events.onToolSearch(section, event.target.value)}>
+            <option value="" selected disabled>Werkzeug auswählen</option>
+            <option value="Quiz">Quiz</option>
+            <option value="Bildkarte">Bildkarte</option>
+            <option value="PDF-Viewer">PDF-Viewer</option>
+            <option value="App-Sammlung">App-Sammlung</option>
+            <option value="Lückentext">Lückentext</option>
+            <option value="Live-Umfrage">Live-Umfrage</option>
+            <option value="Slidecast">Slidecast</option>
+            <option value="Parkhaus">Parkhaus</option>
+            <option value="plotly">plotly</option>
+            <option value="ER-REL-Trainer">ER-REL-Trainer</option>
+            <option value="Code-Editor">Code-Editor</option>
+            <option value="Multiple Choice">Multiple Choice</option>
+          </select>
         </div>
-    </div>
+        
+        <div class="col" style="flex: 0 0 auto;">
+          <label for="section-sort" class="col-form-label" data-lang="search_sort">${dms.text.search_sort}</label>
+          <select id="section-sort" style="width: 200px;" class="form-select" @change=${event => dms.events.onSearch(section, 'sort', event.target.value)}>
+            <option value="" data-lang="search_sort_abc">${dms.text.search_sort_abc}</option>
+            <option value="newest" data-lang="search_sort_newest">${dms.text.search_sort_newest}</option>
+            <option value="rating" data-lang="search_sort_rating">${dms.text.search_sort_rating}</option>
+            <option value="used" data-lang="search_sort_used" ?data-hidden=${section === 'apps'}>${dms.text.search_sort_used}</option>
+          </select>
+        </div>
+      </div>
 
       <div class="container">
         <form>
           <div class="row py-2">
+          </div>
+        </form>
+      </div>
+    </section>
+  `;
+
+  function filterBox(key, title, value) {
+    return html`
+      <div class="col" style="flex: 0 0 auto;">
+        <label for="section-${section}-${key}" class="col-form-label" data-lang="${title}">${dms.text[title]}</label>
+        <input type="search" style="width: 200px;" list="section-${section}-${key}-list" multiple autocomplete="off" id="section-${section}-${key}" class="form-control" .value="${value}" @input=${() => dms.events.onSearch(section)}>
+        <datalist id="section-${section}-${key}-list">
+          ${options[key === 'category' ? 'tags' : key].map(word => html`<option value="${word}">`)}
+        </datalist>
+      </div>
+    `;
+  }
+}
+
+/**
+ * HTML template for searching metadata
+ * @param {string} section - 'tools', 'apps' or 'components'
+ * @param {Object} [values] - initial values for input fields
+ * @returns {TemplateResult}
+ 
+function metaSearch( section, values = {} ) {
+  const options = data[ section !== 'apps' ? 'components' : 'apps' ].options;
+  return html`
+    <section id="search_controls" class="bg-${ section }-light">
+      <div class="container">
+        <form>
+          <div class="row py-2">
+            ${ filterBox( 'title', 'search_title', values.title || '' ) }
+            
+        <div class="containerDrop"> 
+          <div class="dropdown-container">
+            <button class="dropdown-toggle-button" @click=${() => toggleDropdown()}>Hier klicken</button>
+              <div class="dropdown-menu" id="dropdownMenu">
+                  <button class="dropdown-item" @click=${event => { handleClick('Quiz') }}>Quiz</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('Bildkarte') }}>Bildkarte</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('PDF-Viewer') }}>PDF-Viewer</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('App-Sammlung') }}>App-Sammlung</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('Lückentext') }}>Lückentext</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('Live-Umfrage') }}>Live-Umfrage</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('Slidecast') }}>Slidecast</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('Parkhaus') }}>Parkhaus</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('plotly') }}>plotly</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('ER-REL-Trainer') }}>ER-REL-Trainer</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('Code-Editor') }}>Code-Editor</button>
+                  <button class="dropdown-item" @click=${event => { handleClick('Multiple Choice') }}>Multiple Choice</button>
+              </div>
+          </div></div>
+
 
             <div class="col">
-
+              <label for="section-sort" class="col-form-label" data-lang="search_sort">${ dms.text.search_sort }</label>
+              <select id="section-sort" class="form-select" @change=${ event => dms.events.onSearch( section, 'sort', event.target.value ) }>
+                <option value="" data-lang="search_sort_abc">${ dms.text.search_sort_abc }</option>
+                <option value="newest" data-lang="search_sort_newest">${ dms.text.search_sort_newest }</option>
+                <option value="rating" data-lang="search_sort_rating">${ dms.text.search_sort_rating }</option>
+                <option value="used" data-lang="search_sort_used" ?data-hidden=${ section === 'apps' }>${ dms.text.search_sort_used }</option>
+              </select>
             </div>
           </div>
         </form>
@@ -534,19 +606,6 @@ function metaSearch( section, values = {} ) {
     toggleDropdown();
   }
   
-  window.onclick = function(event) {
-    if (!event.target.matches('.dropdown-toggle-button')) {
-      var dropdowns = document.getElementsByClassName("dropdown-menu");
-      for (var i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains('show')) {
-          openDropdown.classList.remove('show');
-        }
-      }
-    }
-  }
-  
-  
   function filterBox( key, title, value ) {
     return html`
       <div class="col">
@@ -558,7 +617,10 @@ function metaSearch( section, values = {} ) {
       </div>
     `;
   }
-}
+}*/
+
+
+
 
 /**
  * HTML template for search results
@@ -603,6 +665,7 @@ export function cards( section, values ) {
       <div class="p-2">
         <div class="card h-100 " @click=${ () => {dms.events.onItem( item, meta.key ); scrollToTop(); } }>
           <div class="card-header d-flex p-3 ">
+           <img class="me-3" src="${ meta.icon || dms.icon }" width="50" height="50" alt="${ dms.text[ 'alt_' + item ] }" data-lang="alt_${ item }-alt">
             <div class="overflow-hidden">
               <h5 class="card-title mb-0">${ meta.title }</h5>
               <span class="badge rounded-pill bg-tools-light text-dark" title="${ dms.text.tooltip_tool }" data-lang="tooltip_tool-title" ?data-hidden=${ !meta.app }>${ meta.tool }</span>

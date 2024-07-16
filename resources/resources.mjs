@@ -198,7 +198,11 @@ const de = {
   "app_start_page1":"1",
   "app_start_page2":"2",
   "apps": "Vorlagen",
-  "apps_trailer": "Verwende von anderen erstellte Apps als Vorlage für eigene Apps und passe sie dann an deine eigenen individuellen Bedürfnisse an.",
+  "apps_trailer": `Erstelle hier eigene Apps, indem du:<br><br>
+    <ol>
+      <li>Von anderen erstellte Apps als Vorlage verwendest</li>
+      <li>Sie an deine eigenen individuellen Bedürfnisse anpasst</li>
+    </ol>`,
   "breadcrumb": "Du bist hier:",
   "btn_back": "Zurück",
   "btn_bookmarks": "Merkliste",
