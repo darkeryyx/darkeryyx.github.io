@@ -128,6 +128,12 @@ export function newHeader(active) {
   const apps = user && data.apps.arr.filter(app => app.creator === user.name) || [];
 
   return html`
+    <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    </head>
     <div class="header">
       <div class="container">
         <div class="logo-container">
@@ -292,13 +298,11 @@ export function newHome(active) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMxRqZ/Z0N6U1h5jOVJ6m5eV8i/RaYwa2SA6C2" crossorigin="anonymous">
-</head>
   <div class ="body">
     <section class="hero">
       <div class="container">
         <div class="hero-content">
-          <h2 class ="ueberschrift">In wenigen Schritten zur eigenen App - auch ohne Vorkenntnisse!</h2>
+          <h2 class ="ueberschrift">Kostenlos in wenigen Schritten zur eigenen App - auch ohne Vorkenntnisse!</h2>
           <p class="bietet" >Das bietet der Digital Makerspace:</p>
           <ul class ="fakten" >
             <li>Selber Bauen von Apps- auch ohne Vorkenntnisse!</li>
@@ -476,6 +480,7 @@ function trailer(section, title, text) {
           <div class="col">
             <img src="${imageUrl}" alt="Digital Makerspace Logo" class="bannerLogo">
           </div>
+          <p style="padding-left:7.7%;color: white;">Die Apps können im Web platziert, mit anderen geteilt und in anderen Apps verwendet werden </p>
         </div>
       </div>
     </section>
@@ -498,7 +503,7 @@ function metaSearch(section, values = {}) {
         <div class="col" style="flex: 0 0 auto;">
           <label for="section-tool" class="col-form-label" data-lang="search_tool">${dms.text.search_tool}</label>
           <select id="section-tool" style="width: 200px;" class="form-select" @change=${event => dms.events.onToolSearch(section, event.target.value)}>
-            <option value="" selected disabled>Werkzeug auswählen</option>
+            <option value="" selected disabled>Kategorie auswählen</option>
             <option value="Quiz">Quiz</option>
             <option value="Bildkarte">Bildkarte</option>
             <option value="PDF-Viewer">PDF-Viewer</option>
@@ -546,81 +551,6 @@ function metaSearch(section, values = {}) {
     `;
   }
 }
-
-/**
- * HTML template for searching metadata
- * @param {string} section - 'tools', 'apps' or 'components'
- * @param {Object} [values] - initial values for input fields
- * @returns {TemplateResult}
- 
-function metaSearch( section, values = {} ) {
-  const options = data[ section !== 'apps' ? 'components' : 'apps' ].options;
-  return html`
-    <section id="search_controls" class="bg-${ section }-light">
-      <div class="container">
-        <form>
-          <div class="row py-2">
-            ${ filterBox( 'title', 'search_title', values.title || '' ) }
-            
-        <div class="containerDrop"> 
-          <div class="dropdown-container">
-            <button class="dropdown-toggle-button" @click=${() => toggleDropdown()}>Hier klicken</button>
-              <div class="dropdown-menu" id="dropdownMenu">
-                  <button class="dropdown-item" @click=${event => { handleClick('Quiz') }}>Quiz</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('Bildkarte') }}>Bildkarte</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('PDF-Viewer') }}>PDF-Viewer</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('App-Sammlung') }}>App-Sammlung</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('Lückentext') }}>Lückentext</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('Live-Umfrage') }}>Live-Umfrage</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('Slidecast') }}>Slidecast</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('Parkhaus') }}>Parkhaus</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('plotly') }}>plotly</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('ER-REL-Trainer') }}>ER-REL-Trainer</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('Code-Editor') }}>Code-Editor</button>
-                  <button class="dropdown-item" @click=${event => { handleClick('Multiple Choice') }}>Multiple Choice</button>
-              </div>
-          </div></div>
-
-
-            <div class="col">
-              <label for="section-sort" class="col-form-label" data-lang="search_sort">${ dms.text.search_sort }</label>
-              <select id="section-sort" class="form-select" @change=${ event => dms.events.onSearch( section, 'sort', event.target.value ) }>
-                <option value="" data-lang="search_sort_abc">${ dms.text.search_sort_abc }</option>
-                <option value="newest" data-lang="search_sort_newest">${ dms.text.search_sort_newest }</option>
-                <option value="rating" data-lang="search_sort_rating">${ dms.text.search_sort_rating }</option>
-                <option value="used" data-lang="search_sort_used" ?data-hidden=${ section === 'apps' }>${ dms.text.search_sort_used }</option>
-              </select>
-            </div>
-          </div>
-        </form>
-      </div>
-    </section>
-  `;
-
-  function toggleDropdown() {
-    document.getElementById("dropdownMenu").classList.toggle("show");
-  }
-  
-  function handleClick(toolName) {
-    dms.events.onToolSearch(section, toolName);
-    toggleDropdown();
-  }
-  
-  function filterBox( key, title, value ) {
-    return html`
-      <div class="col">
-        <label for="section-${ section }-${ key }" class="col-form-label" data-lang="${ title }">${ dms.text[ title ] }</label>
-        <input type="search" list="section-${ section }-${ key }-list" multiple autocomplete="off" id="section-${ section }-${ key }" class="form-control" .value="${ value }" @input=${ () => dms.events.onSearch( section ) }>
-        <datalist id="section-${ section }-${ key }-list">
-          ${ options[ key === 'category' ? 'tags' : key ].map( word => html`<option value="${ word }">` ) }
-        </datalist>
-      </div>
-    `;
-  }
-}*/
-
-
-
 
 /**
  * HTML template for search results
@@ -742,10 +672,17 @@ export function item( section, meta_key ) {
             </div>
               <div class="col d-flex justify-content-start align-items-end my-3 btn-pos btn-posEnd">
                 ${is_creator ? html`<p class="mb-0 me-3">Super, deine App ist fertig!</p>` : ''}
-                <button class="btn btn-outline-${ color } btn-lg" ?data-hidden=${ section === 'component' } @click=${ () => dms.events.onStart( section, meta.key ) }>
-                  <span data-lang="${ is_creator ? 'app_show' : 'template_show' }">${ is_creator ? 'App anzeigen' : 'Vorlage anzeigen' }</span>
-                  <i class="bi bi-chevron-right"></i>
-                </button>
+                    <button class="btn btn-outline-${ color } btn-lg" ?data-hidden=${ section === 'component' } @click=${ () => dms.events.onStart( section, meta.key ) }>
+                      <span data-lang="${ is_creator ? 'app_show' : 'template_show' }">
+                        ${ 
+                          section === 'tool' ? 'App erstellen' :
+                          section === 'app' ? (is_creator ? 'App anzeigen' : 'Vorlage anzeigen') :
+                          section === 'component' ? 'Komponente anzeigen' :
+                          'App anzeigen'
+                        }
+                      </span>
+                      <i class="bi bi-chevron-right"></i>
+                    </button>
                 <a class="btn btn-outline-${ color } btn-lg ms-2" href="${ code }" target="_blank" ?data-hidden=${ section !== 'component' }>
                   <span data-lang="${ section + '_start' }">${ dms.text[ section + '_start' ] }</span><i class="bi bi-chevron-right"></i>
                 </a>

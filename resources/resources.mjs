@@ -198,15 +198,17 @@ const de = {
   "app_start_page1":"1",
   "app_start_page2":"2",
   "apps": "Vorlagen",
-  "apps_trailer": `Erstelle hier eigene Apps, indem du:<br><br>
+  "apps_trailer": `In wenigen Schritten zur eigenen App:<br><br>
     <ol>
-      <li>Von anderen erstellte Apps als Vorlage verwendest</li>
-      <li>Sie an deine eigenen individuellen Bedürfnisse anpasst</li>
-    </ol>`,
+      <li>Vorlage auswählen</li>
+      <li>Vorlage individuell anpassen</li>
+      <li>App fertigstellen</li>
+    </ol>
+    <p> Kostenlos und keine Vorkenntnisse nötig!`,
   "breadcrumb": "Du bist hier:",
   "btn_back": "Zurück",
   "btn_bookmarks": "Merkliste",
-  "btn_create_app": "App erstellen",
+  "btn_create_app": "App fertigstellen",
   "btn_last_step": "Zum letzten Schritt",
   "btn_data": "Meine Daten",
   "btn_delete": "Löschen",
@@ -308,7 +310,7 @@ const de = {
   "search_sort_rating": "Beste Bewertung",
   "search_sort_used": "Meist genutzt",
   "search_title": "Titel",
-  "search_tool": "Werkzeug",
+  "search_tool": "Kategorie",
   "show": "Anzeigen",
   "show_app": "App anzeigen",
   "social_media": "Digital Makerspace in sozialen Netzwerken:",
@@ -317,12 +319,13 @@ const de = {
   "tool": "Werkzeug",
   "tool_start": "Starte App-Editor",
   "tools": "Bauen",
-  "tools_trailer": `Wähle hier die App aus, die du bauen möchtest - keine Programmierkenntnisse benötigt!<br><br>Diese können:<br>
-<ul>
-  <li>Im Web platziert werden</li>
-  <li>Mit anderen geteilt werden</li>
-  <li>in anderen Apps verwendet werden</li>
-</ul>`,
+  "tools_trailer": `In wenigen Schritten zur eigenen App:<br><br>
+    <ol>
+      <li>App auswählen</li>
+      <li>App erstellen</li>
+      <li>App fertigstellen</li>
+    </ol>
+    <p> Kostenlos und keine Vorkenntnisse nötig!`,
   "tooltip_apps": "So viele Apps wurden mit diesem Werkzeug veröffentlicht.",
   "tooltip_back_app": "Zurück zur App",
   "tooltip_back_component": "Zurück zur Komponente",
